@@ -1,5 +1,7 @@
 package abstract
 
+import "github.com/tester-rep/spr-go/channel"
+
 type IRobot interface {
 	Init() bool
 	RunAction() int
@@ -58,8 +60,7 @@ func (a *AbstractRobot) Run(robot IRobot) {
 		i++
 	} //end for
 	robot.Close()
-	StopNum
-	//channel.StopNum <- 1
+	channel.StopNum <- -1
 }
 
 func (a *AbstractRobot) IsEnableSampler() bool {
