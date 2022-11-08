@@ -1,6 +1,9 @@
 package abstract
 
-import "github.com/tester-rep/spr-go/channel"
+import (
+	"github.com/tester-rep/spr-go/channel"
+	"sync"
+)
 
 type IRobot interface {
 	Init() bool
@@ -20,6 +23,7 @@ type AbstractRobot struct {
 	StopRobot     bool
 	enableSampler bool
 	isActive      bool
+	isActiveLock  sync.Mutex
 }
 
 func NewAbstractRobot(index int, tranTotal int64) *AbstractRobot {
@@ -76,8 +80,12 @@ func (a *AbstractRobot) SetStopRobot(sign bool) {
 }
 
 func (a *AbstractRobot) IsActive() bool {
+	a.isActiveLock.Lock()
+	defer a.isActiveLock.Unlock()
 	return a.isActive
 }
 func (a *AbstractRobot) SetActive(isActive bool) {
+	a.isActiveLock.Lock()
+	defer a.isActiveLock.Unlock()
 	a.isActive = isActive
 }
