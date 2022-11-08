@@ -9,6 +9,8 @@ type IRobot interface {
 	Run(robot IRobot)
 	IsEnableSampler() bool
 	SetStopRobot(sign bool)
+	IsActive() bool
+	SetActive(isActive bool)
 }
 
 type AbstractRobot struct {
@@ -17,6 +19,7 @@ type AbstractRobot struct {
 	initSuccess   bool
 	StopRobot     bool
 	enableSampler bool
+	isActive      bool
 }
 
 func NewAbstractRobot(index int, tranTotal int64) *AbstractRobot {
@@ -25,6 +28,7 @@ func NewAbstractRobot(index int, tranTotal int64) *AbstractRobot {
 	robot.TranTotal = tranTotal
 	robot.StopRobot = false
 	robot.enableSampler = true
+	robot.isActive = false
 	return robot
 }
 
@@ -60,7 +64,7 @@ func (a *AbstractRobot) Run(robot IRobot) {
 		i++
 	} //end for
 	robot.Close()
-	channel.StopNum <- -1
+	channel.StopNum <- 1
 }
 
 func (a *AbstractRobot) IsEnableSampler() bool {
@@ -69,4 +73,11 @@ func (a *AbstractRobot) IsEnableSampler() bool {
 
 func (a *AbstractRobot) SetStopRobot(sign bool) {
 	a.StopRobot = sign
+}
+
+func (a *AbstractRobot) IsActive() bool {
+	return a.isActive
+}
+func (a *AbstractRobot) SetActive(isActive bool) {
+	a.isActive = isActive
 }
