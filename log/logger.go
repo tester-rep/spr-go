@@ -1,12 +1,12 @@
 package log
 
 type ILogger interface {
-	LogT(args ...interface{})
-	LogD(args ...interface{})
-	LogI(args ...interface{})
-	LogW(args ...interface{})
-	LogE(args ...interface{})
-	LogF(args ...interface{})
-	LogP(args ...interface{})
+	Trace(args ...interface{})
+	Debug(args ...interface{})
+	Info(args ...interface{})
+	Warn(args ...interface{})
+	Error(args ...interface{})
+	Fatal(args ...interface{})
+	Panic(args ...interface{})
 	OpenLog(bool)
 }
