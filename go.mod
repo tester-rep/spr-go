@@ -1,3 +1,3 @@
 module github.com/tester-rep/spr-go
 
-go 1.20
+go 1.24
